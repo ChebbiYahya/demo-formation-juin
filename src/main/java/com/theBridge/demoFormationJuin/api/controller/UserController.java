@@ -3,7 +3,9 @@ package com.theBridge.demoFormationJuin.api.controller;
 
 import com.theBridge.demoFormationJuin.api.dto.UserRequestDto;
 import com.theBridge.demoFormationJuin.api.dto.UserResponseDto;
+import com.theBridge.demoFormationJuin.api.dto.UserWithRoleRequest;
 import com.theBridge.demoFormationJuin.application.interfaces.UserInterface;
+import com.theBridge.demoFormationJuin.domain.entities.UserEntity;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -106,6 +108,11 @@ public class UserController {
     @GetMapping("/sql/by-domain")
     public ResponseEntity<List<UserResponseDto>> findByDomainSQL(@RequestParam String domain) {
         return ResponseEntity.ok(userInterface.findByDomainSQL(domain));
+    }
+
+    @PostMapping("/add-with-role")
+    public UserEntity addUserWithRole(@RequestBody UserWithRoleRequest request) {
+        return userInterface.addUserWithRole(request.getUser(), request.getRoleName());
     }
 
 }

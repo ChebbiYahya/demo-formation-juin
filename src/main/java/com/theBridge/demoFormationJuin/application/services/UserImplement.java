@@ -5,15 +5,23 @@ import com.theBridge.demoFormationJuin.api.dto.UserResponseDto;
 import com.theBridge.demoFormationJuin.api.exception.ResourceNotFoundException;
 import com.theBridge.demoFormationJuin.api.mapper.UserMapper;
 import com.theBridge.demoFormationJuin.application.interfaces.UserInterface;
+import com.theBridge.demoFormationJuin.domain.entities.RoleEntity;
 import com.theBridge.demoFormationJuin.domain.entities.UserEntity;
+import com.theBridge.demoFormationJuin.domain.enums.RoleName;
+import com.theBridge.demoFormationJuin.repository.RoleRepository;
 import com.theBridge.demoFormationJuin.repository.UserRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserImplement implements UserInterface {
+
+    @Autowired
+    RoleRepository roleRepository;
+
     @Autowired
     private UserRespository userRepository;
 
@@ -134,6 +142,21 @@ public class UserImplement implements UserInterface {
                 .stream()
                 .map(userMapper::toResponseDto)
                 .toList();
+    }
+
+    @Override
+    public UserEntity addUserWithRole(UserEntity user, RoleName roleName) {
+        Optional<RoleEntity> optionalRole = roleRepository.findByRoleName(roleName);
+        RoleEntity role = optionalRole.orElseGet(
+                () -> {
+                    RoleEntity r = new RoleEntity();
+                    r.setRoleName(roleName);
+                    return roleRepository.save(r);
+
+                }
+        );
+        user.setRole(role);
+        return userRepository.save(user);
     }
 
 

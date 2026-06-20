@@ -2,6 +2,8 @@ package com.theBridge.demoFormationJuin.application.interfaces;
 
 import com.theBridge.demoFormationJuin.api.dto.UserRequestDto;
 import com.theBridge.demoFormationJuin.api.dto.UserResponseDto;
+import com.theBridge.demoFormationJuin.domain.entities.UserEntity;
+import com.theBridge.demoFormationJuin.domain.enums.RoleName;
 
 import java.util.List;
 
@@ -35,4 +37,6 @@ public interface UserInterface {
     List<UserResponseDto> findByCleSQL(String cle);
 
     List<UserResponseDto> findByDomainSQL(String domain);
+
+    UserEntity addUserWithRole(UserEntity user, RoleName roleName);
 }
