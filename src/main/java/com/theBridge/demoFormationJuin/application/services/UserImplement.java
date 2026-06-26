@@ -9,7 +9,7 @@ import com.theBridge.demoFormationJuin.domain.entities.RoleEntity;
 import com.theBridge.demoFormationJuin.domain.entities.UserEntity;
 import com.theBridge.demoFormationJuin.domain.enums.RoleName;
 import com.theBridge.demoFormationJuin.repository.RoleRepository;
-import com.theBridge.demoFormationJuin.repository.UserRespository;
+import com.theBridge.demoFormationJuin.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ public class UserImplement implements UserInterface {
     RoleRepository roleRepository;
 
     @Autowired
-    private UserRespository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private UserMapper userMapper;

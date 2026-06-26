@@ -8,11 +8,13 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserRespository extends JpaRepository<UserEntity,Long> {
+public interface UserRepository extends JpaRepository<UserEntity,Long> {
 
     // NAMED METHOD
     // Spring Data JPA lit le nom de la methode et genere la requete automatiquement.
     boolean existsByUsername(String username);
+
+    boolean existsByEmail(String email);
 
     Optional<UserEntity> findByUsername(String username);
 
